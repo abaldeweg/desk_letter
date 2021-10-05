@@ -1,0 +1,23 @@
+{
+  "profile": "Profile",
+  "username": "Username",
+  "password": "Password",
+  "changePassword": "Change Password",
+  "login": "Login",
+  "logout": "Logout",
+  "theme": "Themes",
+  "language": "Language",
+  "save": "Save",
+  "remove": "Remove",
+  "passwordError": "Password could not be changed.",
+  "passwordSuccessful": "Password changed.",
+  "letters": "Letters",
+  "letter": "Letter",
+  "wrongCredentials": "Please, check your credentials.",
+  "edit_letter": "Edit Letter",
+  "title": "Title",
+  "meta": "Meta",
+  "content": "Content",
+  "add_new_letter": "Add new Letter",
+  "edit": "Edit"
+}
