@@ -45,5 +45,9 @@ export default function useLetter() {
     })
   }
 
-  return { state, list, create, show, update, remove }
+  const download = (url) => {
+    return api.download(url)
+  }
+
+  return { state, list, create, show, update, remove, download }
 }

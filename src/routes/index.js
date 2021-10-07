@@ -16,11 +16,7 @@ export default [
     path: '/letter/:id',
     name: 'letter.edit',
     component: () => import('../views/LetterEditView'),
-    props(route) {
-      const props = route.params
-      props.id = +props.id
-      return props
-    },
+    props: true,
   },
   {
     path: '/profile',

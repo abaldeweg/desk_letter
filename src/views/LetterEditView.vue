@@ -4,6 +4,12 @@
       <h1>{{ $t('edit_letter') }}</h1>
     </b-container>
 
+    <b-container size="m">
+      <b-button design="outline" @click="download">
+        {{ $t('download') }}
+      </b-button>
+    </b-container>
+
     <b-container size="m" v-if="letter.state.letter">
       <b-form @submit.prevent="letter.update()">
         <b-form-group>
@@ -50,18 +56,22 @@ export default {
     title: 'Edit Letter',
   },
   props: {
-    id: Number,
+    id: String,
   },
   setup(props) {
     const { id } = toRefs(props)
 
     const letter = useLetter()
 
+    const download = () => {
+      return letter.download(id.value)
+    }
+
     onMounted(() => {
       letter.show(id.value)
     })
 
-    return { letter }
+    return { letter, download }
   },
 }
 </script>

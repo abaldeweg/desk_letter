@@ -1,4 +1,5 @@
 import request from '~b/api'
+import file from '@/api/download'
 
 export const list = function () {
   return request().get('/api/letter/')
@@ -20,4 +21,22 @@ export const remove = function (id) {
   return request().delete('/api/letter/' + id)
 }
 
-export default { list, create, show, update, remove }
+export const download = function (id) {
+  return file()
+    .get('/api/letter/download/' + id)
+    .then((response) => {
+      const blob = new Blob([response.data], {
+        type: 'application/pdf',
+      })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.style.display = 'none'
+      a.href = url
+      a.download = id + '.pdf'
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+    })
+}
+
+export default { list, create, show, update, remove, download }
