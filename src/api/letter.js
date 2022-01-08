@@ -1,24 +1,24 @@
-import request from '~b/api'
+import { request } from '~b/api'
 import file from '@/api/download'
 
 export const list = function () {
-  return request().get('/api/letter/')
+  return request('get', '/api/letter/')
 }
 
 export const create = function (data) {
-  return request().post('/api/letter/new', data)
+  return request('post', '/api/letter/new', data)
 }
 
 export const show = function (id, data) {
-  return request().get('/api/letter/' + id, data)
+  return request('get', '/api/letter/' + id, data)
 }
 
 export const update = function (id, data) {
-  return request().put('/api/letter/' + id, data)
+  return request('put', '/api/letter/' + id, data)
 }
 
 export const remove = function (id) {
-  return request().delete('/api/letter/' + id)
+  return request('delete', '/api/letter/' + id)
 }
 
 export const download = function (id) {
