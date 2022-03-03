@@ -949,13 +949,13 @@
     vue-meta "2.4.0"
     vue-router "3.5.3"
 
-"@baldeweg/vue-cli-plugin-components@0.4.4":
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/@baldeweg/vue-cli-plugin-components/-/vue-cli-plugin-components-0.4.4.tgz#3e2f7403fc623c8f5c2e49a5d861985ccbc69bac"
-  integrity sha512-5k/AGVA2/XQUmqf6/ryGopXql/OU5UO/aFtq4dEzhL3gDSLG/TTzyqZPkI6cjgILeqzudDDdpYSKtdMTz89y8g==
+"@baldeweg/vue-cli-plugin-components@0.4.5":
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/@baldeweg/vue-cli-plugin-components/-/vue-cli-plugin-components-0.4.5.tgz#67b92ded737a99675effe7dbf953ea92d722d028"
+  integrity sha512-pSPnBsmPTXJgV5JZsYm7sQNa2O1yCaGTLGdxa3t4T365iYsUPwzoXBlSHVNnb317W+duIZFBU83KdDKmp+Ounw==
   dependencies:
     "@baldeweg/components" "7.2.0"
-    "@vue/composition-api" "1.4.6"
+    "@vue/composition-api" "1.4.9"
     axios "0.26.0"
     fs-extra "10.0.1"
     js-cookie "3.0.1"
@@ -1802,11 +1802,6 @@
     vue-template-es2015-compiler "^1.9.0"
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
-
-"@vue/composition-api@1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@vue/composition-api/-/composition-api-1.4.6.tgz#886c35221cd7c6f55272543a121240e8d3a1306c"
-  integrity sha512-UP359OJ0G0Zli603/i9fhXFmNtZUSrypSFyqClMxizp8ezlaMK2GCmHgy3qyrRnO/xjcDAx09vvXPwNFtxHPtQ==
 
 "@vue/composition-api@1.4.9":
   version "1.4.9"
