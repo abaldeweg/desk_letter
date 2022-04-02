@@ -1,4 +1,4 @@
-import { request } from '~b/api'
+import { request } from '@/api'
 import file from '@/api/download'
 
 export const list = function () {
