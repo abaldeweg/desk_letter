@@ -53,14 +53,14 @@ export function useLetter() {
         const blob = new Blob([response.data], {
           type: 'application/pdf',
         })
-        const url = window.URL.createObjectURL(blob)
+        const data = window.URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.style.display = 'none'
-        a.href = url
-        a.download = url + '.pdf'
+        a.href = data
+        a.download = data + '.pdf'
         document.body.appendChild(a)
         a.click()
-        window.URL.revokeObjectURL(url)
+        window.URL.revokeObjectURL(data)
       })
   }
 
