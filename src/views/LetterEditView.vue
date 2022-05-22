@@ -1,6 +1,6 @@
 <script setup>
 import { useTitle } from '@baldeweg/ui'
-import useLetter from '@/composables/useLetter.js'
+import { useLetter } from '@/composables/useLetter.js'
 import { onMounted, toRefs } from 'vue'
 
 useTitle({ title: 'Edit Letter' })
@@ -12,14 +12,10 @@ const props = defineProps({
 
 const { id } = toRefs(props)
 
-const letter = useLetter()
-
-const download = () => {
-  return letter.download(id.value)
-}
+const { letter, show, update, download } = useLetter()
 
 onMounted(() => {
-  letter.show(id.value)
+  show(id.value)
 })
 </script>
 
@@ -29,19 +25,19 @@ onMounted(() => {
   </BContainer>
 
   <BContainer size="m">
-    <BButton design="outline" @click="download">
+    <BButton design="outline" @click="download(id)">
       {{ $t('download') }}
     </BButton>
   </BContainer>
 
-  <BContainer size="m" v-if="letter.state.letter">
-    <BForm @submit.prevent="letter.update()">
+  <BContainer size="m" v-if="letter">
+    <BForm @submit.prevent>
       <BFormGroup>
         <BFormItem>
           <BFormLabel for="title">{{ $t('title') }}</BFormLabel>
         </BFormItem>
         <BFormItem>
-          <BFormInput v-model="letter.state.letter.title" />
+          <BFormInput v-model="letter.title" />
         </BFormItem>
       </BFormGroup>
       <BFormGroup>
@@ -49,7 +45,7 @@ onMounted(() => {
           <BFormLabel for="meta">{{ $t('meta') }}</BFormLabel>
         </BFormItem>
         <BFormItem>
-          <BFormTextarea v-model="letter.state.letter.meta" rows="10" />
+          <BFormTextarea v-model="letter.meta" rows="10" />
         </BFormItem>
       </BFormGroup>
       <BFormGroup>
@@ -57,12 +53,14 @@ onMounted(() => {
           <BFormLabel for="content">{{ $t('content') }}</BFormLabel>
         </BFormItem>
         <BFormItem>
-          <BFormTextarea v-model="letter.state.letter.content" rows="15" />
+          <BFormTextarea v-model="letter.content" rows="15" />
         </BFormItem>
       </BFormGroup>
-      <BFormGroup buttons>
+      <BFormGroup>
         <BFormItem>
-          <BButton design="primary">{{ $t('save') }}</BButton>
+          <BButton design="primary_wide" @click.prevent="update">{{
+            $t('save')
+          }}</BButton>
         </BFormItem>
       </BFormGroup>
     </BForm>

@@ -1,7 +1,6 @@
 <script setup>
 import { useTitle } from '@baldeweg/ui'
-import useLetter from '@/composables/useLetter.js'
-import { reactive } from 'vue'
+import { useLetter } from '@/composables/useLetter.js'
 
 defineProps({
   auth: Object,
@@ -9,17 +8,7 @@ defineProps({
 
 useTitle({ title: 'Letter' })
 
-const state = reactive({
-  title: '',
-})
-
-const create = () => {
-  letter.create(state.title).then(() => {
-    state.title = ''
-  })
-}
-
-const letter = useLetter()
+const { letters, title, create, remove } = useLetter()
 </script>
 
 <template>
@@ -28,16 +17,21 @@ const letter = useLetter()
   </BContainer>
 
   <BContainer size="m">
-    <BForm @submit.prevent="create">
+    <BForm @submit.prevent>
       <BFormGroup>
         <BFormItem>
           <BFormLabel for="title" hidden>{{ $t('title') }}</BFormLabel>
         </BFormItem>
         <BFormItem>
-          <BFormInput
-            :placeholder="$t('add_new_letter')"
-            v-model="state.title"
-          />
+          <BFormInput :placeholder="$t('add_new_letter')" v-model="title" />
+        </BFormItem>
+      </BFormGroup>
+
+      <BFormGroup buttons>
+        <BFormItem>
+          <BButton design="outline" @click.prevent="create">{{
+            $t('create')
+          }}</BButton>
         </BFormItem>
       </BFormGroup>
     </BForm>
@@ -45,7 +39,7 @@ const letter = useLetter()
 
   <BContainer size="m">
     <BList
-      v-for="item in letter.state.letters"
+      v-for="item in letters"
       :key="item.id"
       :route="{ name: 'letter.edit', params: { id: item.id } }"
       divider
@@ -64,7 +58,7 @@ const letter = useLetter()
           >
             {{ $t('edit') }}
           </BDropdownItem>
-          <BDropdownItem icon="bin" @click.prevent="letter.remove(item.id)">
+          <BDropdownItem icon="bin" @click.prevent="remove(item.id)">
             {{ $t('remove') }}
           </BDropdownItem>
         </BDropdown>

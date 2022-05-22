@@ -1,38 +1,40 @@
-import { onMounted, reactive } from 'vue'
+import { onMounted, ref } from 'vue'
 import { request } from '@/api'
 import file from '@/api/download.js'
 
-export default function useLetter() {
-  const state = reactive({
-    letters: null,
-    letter: null,
-  })
+export function useLetter() {
+  const letters = ref(null)
+  const letter = ref(null)
+  const title = ref('')
 
   const list = () => {
     return request('get', '/api/letter/').then((response) => {
-      state.letters = response.data
+      letters.value = response.data
     })
   }
 
   onMounted(list)
 
-  const create = (title) => {
-    return request('post', '/api/letter/new', { title }).then(() => {
-      list()
-    })
+  const create = () => {
+    return request('post', '/api/letter/new', { title: title.value }).then(
+      () => {
+        title.value = ''
+        list()
+      }
+    )
   }
 
   const show = (id) => {
     return request('get', '/api/letter/' + id).then((response) => {
-      state.letter = response.data
+      letter.value = response.data
     })
   }
 
   const update = () => {
-    return request('put', '/api/letter/' + state.letter.id, {
-      title: state.letter.title,
-      meta: state.letter.meta,
-      content: state.letter.content,
+    return request('put', '/api/letter/' + letter.value.id, {
+      title: letter.value.title,
+      meta: letter.value.meta,
+      content: letter.value.content,
     }).then(() => {
       list()
     })
@@ -62,5 +64,5 @@ export default function useLetter() {
       })
   }
 
-  return { state, list, create, show, update, remove, download }
+  return { letters, letter, title, show, create, update, remove, download }
 }
