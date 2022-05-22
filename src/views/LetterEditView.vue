@@ -1,77 +1,70 @@
-<template>
-  <article>
-    <b-container size="m">
-      <h1>{{ $t('edit_letter') }}</h1>
-    </b-container>
+<script setup>
+import { useTitle } from '@baldeweg/ui'
+import useLetter from '@/composables/useLetter.js'
+import { onMounted, toRefs } from 'vue'
 
-    <b-container size="m">
-      <b-button design="outline" @click="download">
-        {{ $t('download') }}
-      </b-button>
-    </b-container>
+useTitle({ title: 'Edit Letter' })
 
-    <b-container size="m" v-if="letter.state.letter">
-      <b-form @submit.prevent="letter.update()">
-        <b-form-group>
-          <b-form-item>
-            <b-form-label for="title">{{ $t('title') }}</b-form-label>
-          </b-form-item>
-          <b-form-item>
-            <b-form-input v-model="letter.state.letter.title" />
-          </b-form-item>
-        </b-form-group>
-        <b-form-group>
-          <b-form-item>
-            <b-form-label for="meta">{{ $t('meta') }}</b-form-label>
-          </b-form-item>
-          <b-form-item>
-            <b-form-textarea v-model="letter.state.letter.meta" rows="10" />
-          </b-form-item>
-        </b-form-group>
-        <b-form-group>
-          <b-form-item>
-            <b-form-label for="content">{{ $t('content') }}</b-form-label>
-          </b-form-item>
-          <b-form-item>
-            <b-form-textarea v-model="letter.state.letter.content" rows="15" />
-          </b-form-item>
-        </b-form-group>
-        <b-form-group buttons>
-          <b-form-item>
-            <b-button design="primary">{{ $t('save') }}</b-button>
-          </b-form-item>
-        </b-form-group>
-      </b-form>
-    </b-container>
-  </article>
-</template>
+const props = defineProps({
+  auth: Object,
+  id: String,
+})
 
-<script>
-import useLetter from '@/composables/useLetter'
-import { onMounted, toRefs } from '@vue/composition-api'
+const { id } = toRefs(props)
 
-export default {
-  name: 'letter-edit-view',
-  head: {
-    title: 'Edit Letter',
-  },
-  props: {
-    id: String,
-  },
-  setup(props) {
-    const { id } = toRefs(props)
+const letter = useLetter()
 
-    const letter = useLetter()
-
-    const download = () => {
-      return letter.download(id.value)
-    }
-
-    onMounted(() => {
-      letter.show(id.value)
-    })
-
-    return { letter, download }
-  },
+const download = () => {
+  return letter.download(id.value)
 }
+
+onMounted(() => {
+  letter.show(id.value)
+})
 </script>
+
+<template>
+  <BContainer size="m">
+    <h1>{{ $t('edit_letter') }}</h1>
+  </BContainer>
+
+  <BContainer size="m">
+    <BButton design="outline" @click="download">
+      {{ $t('download') }}
+    </BButton>
+  </BContainer>
+
+  <BContainer size="m" v-if="letter.state.letter">
+    <BForm @submit.prevent="letter.update()">
+      <BFormGroup>
+        <BFormItem>
+          <BFormLabel for="title">{{ $t('title') }}</BFormLabel>
+        </BFormItem>
+        <BFormItem>
+          <BFormInput v-model="letter.state.letter.title" />
+        </BFormItem>
+      </BFormGroup>
+      <BFormGroup>
+        <BFormItem>
+          <BFormLabel for="meta">{{ $t('meta') }}</BFormLabel>
+        </BFormItem>
+        <BFormItem>
+          <BFormTextarea v-model="letter.state.letter.meta" rows="10" />
+        </BFormItem>
+      </BFormGroup>
+      <BFormGroup>
+        <BFormItem>
+          <BFormLabel for="content">{{ $t('content') }}</BFormLabel>
+        </BFormItem>
+        <BFormItem>
+          <BFormTextarea v-model="letter.state.letter.content" rows="15" />
+        </BFormItem>
+      </BFormGroup>
+      <BFormGroup buttons>
+        <BFormItem>
+          <BButton design="primary">{{ $t('save') }}</BButton>
+        </BFormItem>
+      </BFormGroup>
+    </BForm>
+  </BContainer>
+</template>

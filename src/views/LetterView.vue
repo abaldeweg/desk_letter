@@ -1,79 +1,74 @@
-<template>
-  <article>
-    <b-container size="m">
-      <h1>{{ $t('letters') }}</h1>
-    </b-container>
+<script setup>
+import { useTitle } from '@baldeweg/ui'
+import useLetter from '@/composables/useLetter.js'
+import { reactive } from 'vue'
 
-    <b-container size="m">
-      <b-form @submit.prevent="create()">
-        <b-form-group>
-          <b-form-item>
-            <b-form-label for="title" hidden>{{ $t('title') }}</b-form-label>
-          </b-form-item>
-          <b-form-item>
-            <b-form-input
-              :placeholder="$t('add_new_letter')"
-              v-model="state.title"
-            />
-          </b-form-item>
-        </b-form-group>
-      </b-form>
-    </b-container>
+defineProps({
+  auth: Object,
+})
 
-    <b-container size="m">
-      <b-list
-        v-for="item in letter.state.letters"
-        :key="item.id"
-        :route="{ name: 'letter.edit', params: { id: item.id } }"
-        divider
-      >
-        <template #title>{{ item.title }}</template>
-        <template #options>
-          <b-dropdown>
-            <template #selector>
-              <b-icon type="meatballs" />
-            </template>
-            <b-dropdown-item
-              icon="pencil"
-              @click.prevent="
-                $router.push({ name: 'letter.edit', params: { id: item.id } })
-              "
-            >
-              {{ $t('edit') }}
-            </b-dropdown-item>
-            <b-dropdown-item icon="bin" @click.prevent="letter.remove(item.id)">
-              {{ $t('remove') }}
-            </b-dropdown-item>
-          </b-dropdown>
-        </template>
-      </b-list>
-    </b-container>
-  </article>
-</template>
+useTitle({ title: 'Letter' })
 
-<script>
-import useLetter from '@/composables/useLetter'
-import { reactive } from '@vue/composition-api'
+const state = reactive({
+  title: '',
+})
 
-export default {
-  name: 'letter-view',
-  head: {
-    title: 'Letter',
-  },
-  setup() {
-    const state = reactive({
-      title: '',
-    })
-
-    const create = () => {
-      letter.create(state.title).then(() => {
-        state.title = ''
-      })
-    }
-
-    const letter = useLetter()
-
-    return { state, letter, create }
-  },
+const create = () => {
+  letter.create(state.title).then(() => {
+    state.title = ''
+  })
 }
+
+const letter = useLetter()
 </script>
+
+<template>
+  <BContainer size="m">
+    <h1>{{ $t('letters') }}</h1>
+  </BContainer>
+
+  <BContainer size="m">
+    <BForm @submit.prevent="create">
+      <BFormGroup>
+        <BFormItem>
+          <BFormLabel for="title" hidden>{{ $t('title') }}</BFormLabel>
+        </BFormItem>
+        <BFormItem>
+          <BFormInput
+            :placeholder="$t('add_new_letter')"
+            v-model="state.title"
+          />
+        </BFormItem>
+      </BFormGroup>
+    </BForm>
+  </BContainer>
+
+  <BContainer size="m">
+    <BList
+      v-for="item in letter.state.letters"
+      :key="item.id"
+      :route="{ name: 'letter.edit', params: { id: item.id } }"
+      divider
+    >
+      <template #title>{{ item.title }}</template>
+      <template #options>
+        <BDropdown>
+          <template #selector>
+            <BIcon type="meatballs" />
+          </template>
+          <BDropdownItem
+            icon="pencil"
+            @click.prevent="
+              $router.push({ name: 'letter.edit', params: { id: item.id } })
+            "
+          >
+            {{ $t('edit') }}
+          </BDropdownItem>
+          <BDropdownItem icon="bin" @click.prevent="letter.remove(item.id)">
+            {{ $t('remove') }}
+          </BDropdownItem>
+        </BDropdown>
+      </template>
+    </BList>
+  </BContainer>
+</template>

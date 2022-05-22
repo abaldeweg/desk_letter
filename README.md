@@ -1,6 +1,6 @@
 # letter
 
-baldeweg Desk contains services like letter and wiki.
+baldeweg Desk contains services like letter.
 
 ## Getting Started
 

@@ -10,7 +10,7 @@ const headers = () => {
 
 export default function () {
   return axios.create({
-    baseURL: process.env.VUE_APP_API,
+    baseURL: import.meta.env.VUE_APP_API,
     timeout: 50000,
     headers: headers(),
     responseType: 'arraybuffer',

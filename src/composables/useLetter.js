@@ -1,6 +1,6 @@
-import { onMounted, reactive } from '@vue/composition-api'
+import { onMounted, reactive } from 'vue'
 import { request } from '@/api'
-import file from '@/api/download'
+import file from '@/api/download.js'
 
 export default function useLetter() {
   const state = reactive({
