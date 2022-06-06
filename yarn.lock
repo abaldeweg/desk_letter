@@ -907,11 +907,12 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@baldeweg/ui@0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@baldeweg/ui/-/ui-0.1.5.tgz#0b60efaa6618a1a774b2f6ae7b0acfa16f02bedf"
-  integrity sha512-OEc0gUbINZtXj8oaFAkbM9rZQz0fO45awf6RFQVFfMuEktWjHtO1vYiMNDeVztn3qvK3PPRSYeBHa+tAPMD9LQ==
+"@baldeweg/ui@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldeweg/ui/-/ui-0.2.0.tgz#a263e8b51beb6ca3f0b675b839346fda0d30bbf6"
+  integrity sha512-x0V/yWPP5WX1VibEeU3WGwUtFLL4RFhGnM55s2slv5m+mPPW9AGG1uEul3syj6abGY1n/JApoCRW9otYyJiImw==
   dependencies:
+    axios "^0.27.2"
     vue "^3.2.33"
 
 "@colors/colors@1.5.0":
