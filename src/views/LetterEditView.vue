@@ -1,7 +1,7 @@
 <script setup>
 import { useTitle } from '@baldeweg/ui'
-import { useLetter } from '@/composables/useLetter.js'
 import { onMounted, toRefs } from 'vue'
+import { useLetter } from '@/composables/useLetter.js'
 
 useTitle({ title: 'Edit Letter' })
 
