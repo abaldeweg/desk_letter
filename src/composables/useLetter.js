@@ -1,6 +1,9 @@
 import { onMounted, ref } from 'vue'
 import { useRequest } from '@baldeweg/ui'
 import Cookies from 'js-cookie'
+import Yaml from 'js-yaml'
+import _find from 'lodash/find'
+import Slugger from 'github-slugger'
 import file from '@/api/download.js'
 
 export function useLetter() {
@@ -56,6 +59,17 @@ export function useLetter() {
     return file()
       .get('/api/letter/download/' + url)
       .then((response) => {
+        let yaml = Yaml.load(letter.value.meta)
+        let created = _find(yaml['details'], { name: 'Datum' })['value'].split(
+          '.'
+        )
+        let date = new Date()
+        date.setFullYear(created[2])
+        date.setMonth(created[1])
+        date.setDate(created[0])
+
+        let slugger = new Slugger()
+
         const blob = new Blob([response.data], {
           type: 'application/pdf',
         })
@@ -63,7 +77,14 @@ export function useLetter() {
         const a = document.createElement('a')
         a.style.display = 'none'
         a.href = data
-        a.download = data + '.pdf'
+        a.download =
+          '' +
+          date.getFullYear() +
+          date.getMonth() +
+          date.getDate() +
+          '_' +
+          slugger.slug(letter.value.title) +
+          '.pdf'
         document.body.appendChild(a)
         a.click()
         window.URL.revokeObjectURL(data)
